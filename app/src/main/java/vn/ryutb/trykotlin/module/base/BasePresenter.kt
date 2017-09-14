@@ -1,15 +1,21 @@
 package vn.ryutb.trykotlin.module.base
 
+import io.reactivex.disposables.CompositeDisposable
+
 /**
  * Created by MyPC on 14/09/2017.
  */
-open class BasePresenter<in V : Mvp.View, in M : Mvp.Model> : Mvp.Presenter<V, M> {
-    override fun attach(view: V, model: M) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+open class BasePresenter<V : Mvp.View, M : Mvp.Model> : Mvp.Presenter<V, M> {
+    protected var view: V? = null
+    protected var model: M? = null
+    protected val disposalList : CompositeDisposable = CompositeDisposable()
+
+    override fun attach(view: V?, model: M?) {
+        this.view = view
+        this.model = model
     }
 
     override fun detach() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }

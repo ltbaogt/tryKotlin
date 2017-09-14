@@ -5,9 +5,10 @@ package vn.ryutb.trykotlin.module.base
  */
 interface Mvp {
     interface Model {}
-    interface View {}
-    interface Presenter<in V : Mvp.View, in M : Mvp.Model> {
-        fun attach(view: V, model: M)
+    interface View {
+    }
+    interface Presenter<V : Mvp.View, M : Mvp.Model> {
+        fun attach(view: V?, model: M?)
         fun detach()
     }
 }
