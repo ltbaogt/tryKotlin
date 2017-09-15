@@ -17,7 +17,7 @@ class TestPresenter : BasePresenter<TestMvp.View, TestMvp.Model>(), TestMvp.Pres
         request.addProperty("password", "123")
         request.addProperty("osName", "Android")
         request.addProperty("deviceToken", "a--dadkljnzxckjsahndzaskdzx-asmnzxc")
-        disposalList.add(RestClient.provideRestClient().login(request)
+        disposalList.add(RestClient.provideRestClient().login(100, request)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {

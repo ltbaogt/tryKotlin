@@ -3,7 +3,7 @@ package vn.ryutb.trykotlin.network
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import okhttp3.OkHttpClient
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -21,8 +21,18 @@ class RestClient {
                 level = HttpLoggingInterceptor.Level.BODY
             }
         }
+
         private val sClient: OkHttpClient by lazy {
-            OkHttpClient.Builder().addInterceptor(sLoginIntercept).build() }
+            OkHttpClient.Builder()
+                    .addInterceptor(sLoginIntercept)
+                    .addInterceptor { chain ->
+                        var request: Request? = chain.request()
+                        val url: HttpUrl? = request?.url()?.newBuilder()?.addQueryParameter("api_key", "92c1acfc9fd06e1404ee9dd50f594fe0")?.build()
+                        request = request?.newBuilder()?.url(url)?.build()
+                        chain.proceed(request)
+                    }
+                    .build()
+        }
 
         private val sGsonFactory: GsonConverterFactory by lazy {
             GsonConverterFactory.create(GsonBuilder().create())

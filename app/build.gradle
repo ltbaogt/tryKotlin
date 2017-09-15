@@ -17,7 +17,7 @@ android {
     }
     buildTypes {
         def SERVER_URL = "BASE_URL"
-        def SERVER_URL_DEV = "\"http://124.158.14.28:8080/pammobileservice/api/\""
+        def SERVER_URL_DEV = "\"https://api.themoviedb.org/3/\""
         debug {
             buildConfigField "String", SERVER_URL, SERVER_URL_DEV
             debuggable true
