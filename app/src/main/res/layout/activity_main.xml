@@ -6,18 +6,29 @@
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/et01"
-        android:hint="Nhập số trang cần tải thông tin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="Nhập số trang cần tải thông tin" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/loadData"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Load Movie" />
 
     <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/scrolledInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv01"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/movieList"
+        android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </LinearLayout>

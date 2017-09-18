@@ -4,6 +4,7 @@ import android.util.Log
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import vn.ryutb.trykotlin.model.Movie
 import vn.ryutb.trykotlin.module.base.BasePresenter
 import vn.ryutb.trykotlin.network.RestClient
 import java.lang.StringBuilder
@@ -14,17 +15,16 @@ import java.lang.StringBuilder
 class MovieListPresenter : BasePresenter<MovieMvp.View, MovieMvp.Model>(), MovieMvp.Presenter<MovieMvp.View, MovieMvp.Model> {
 
     override fun loadData(forPage: Int) {
-        val movieList: StringBuilder = StringBuilder()
         disposalList.add(RestClient.provideRestClient().getMovieList(forPage)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap {
+                .map {
                     result ->
-                    Observable.fromIterable(result.results)
+                    result.results
                 }
                 //.filter { t -> t.title.startsWith("N") }
-                .concatMap { s -> Observable.just(movieList.append(s.title).append(" - ") ); }
-                .subscribe({ abc -> view?.setTitle(abc.toString()) },
+//                .concatMap { s -> Observable.just(movieList.append(s.title).append(" - ")); }
+                .subscribe({ videos -> onReceiveMovie(videos) },
                         { err -> Log.e("Baolt", err.message) }
                 ))
 //                .map {
@@ -34,6 +34,12 @@ class MovieListPresenter : BasePresenter<MovieMvp.View, MovieMvp.Model>(), Movie
 //                .subscribe({ abc -> view?.setTitle(abc[0].title) },
 //                        { err -> Log.e("Baolt", err.message) }
 //                ))
+    }
+
+    private fun onReceiveMovie(arrayList: ArrayList<Movie>) {
+        view?.setIsLoading(false)
+        if (arrayList.size > 0) view?.setMovieList(arrayList)
+        if (arrayList.size < MovieListActivity.PAGE_SIZE) view?.setIsLastPage(true)
     }
 
 }
