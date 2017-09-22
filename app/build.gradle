@@ -17,7 +17,8 @@ android {
     }
     buildTypes {
         def SERVER_URL = "BASE_URL"
-        def SERVER_URL_DEV = "\"https://api.themoviedb.org/3/\""
+//        def SERVER_URL_DEV = "\"https://api.themoviedb.org/3/\""
+        def SERVER_URL_DEV = "\"http://124.158.14.28:8080/pammobileservice/api/\""
         debug {
             buildConfigField "String", SERVER_URL, SERVER_URL_DEV
             debuggable true
@@ -58,4 +59,10 @@ dependencies {
     /* Butter Knife */
     compile 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+
+//    /* Realtime Database */
+//    implementation "com.google.firebase:firebase-database:$firebaseVersion"
+    /* Firebase Authentication */
+    implementation "com.google.firebase:firebase-auth:$firebaseVersion"
 }
+apply plugin: 'com.google.gms.google-services'

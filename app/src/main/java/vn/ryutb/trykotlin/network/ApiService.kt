@@ -20,5 +20,8 @@ interface ApiService {
 
     @GET("movie/popular")
     fun getMovieList(@Query("page") page: Int): Observable<ListData<Movie>>
+
+    @POST("users/sendCode")
+    fun signIn(@Body body: JsonObject) : Observable<ObjectResponse<SignInModel>>
 }
 
